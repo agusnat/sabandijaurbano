@@ -173,7 +173,7 @@ jQuery(document).ready(function($)
 
 	function getUrlWhatsapp(fullname, shipping, payment, address){
 		let data = loadData();
-		let str = "https://api.whatsapp.com/send/?phone=5491165478215&text=";
+		let str = "https://api.whatsapp.com/send/?phone=5493329566075&text=";
 
 		data.forEach((row) => {
 			str += row['name'] + " *[" + row['quantity'] + " unid]*\n";

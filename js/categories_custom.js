@@ -306,7 +306,7 @@ jQuery(document).ready(function($)
     				$('.product-grid').isotope( option );
 	        	});
 	        });
-			
+
 	        filterButton.on('click', function()
 	        {
 	        	productGrid.isotope({
@@ -413,7 +413,7 @@ jQuery(document).ready(function($)
 				'<div class="product product_filter">'+
 				'<div class="product_image"><img src="'+ (row['imagen'] ? row['imagen'] : 'images/no_disponible.png') + '" alt=""></div>'+
 				'<div class="product_info">'+
-				'<h6 class="product_name">' + (row['titulo'] ? row['titulo'] : "Articulo sin nombre") + '</h6>'+
+				'<h6 class="product_name"><a href="catalog.html#' + index + '">' + (row['titulo'] ? row['titulo'] : "Articulo sin nombre") + '</a></h6>'+
 				'<div class="product_price">$' + (row['precio'] ? row['precio'] : 0) + '</div>'+
 				'</div>'+
 				'</div>'+
@@ -468,6 +468,8 @@ jQuery(document).ready(function($)
 		$('.add_to_cart_button').attr('data-price', price);
 		$('.add_to_cart_button').attr('data-id', key);
 		$('.add_to_cart_button').attr('data-title', title);
+
+		window.location.hash = key;
 
 		openViewer();		
 	}
