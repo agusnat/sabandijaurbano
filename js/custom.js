@@ -370,7 +370,7 @@ jQuery(document).ready(function($)
 					'<div class="product_image"><img src="'+ (row['imagen'] ? row['imagen'] : 'images/no_disponible.png') + '" alt=""></div>'+
 					'<div class="product_info">'+
 					'<h6 class="product_name"><a href="catalog.html#' + index + '">' + (row['titulo'] ? row['titulo'] : "Articulo sin nombre") + '</a></h6>'+
-					'<div class="product_price">$' + (row['precio'] ? row['precio'] : '-') + '</div>'+
+					'<div class="product_price">$' + (row['precio'] ? row['precio'] : '0') + '</div>'+
 					'</div></div></div></div>';
 
 					$('.owl-carousel').owlCarousel('add', str);
