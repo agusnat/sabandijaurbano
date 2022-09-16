@@ -160,9 +160,9 @@ jQuery(document).ready(function($)
 		fullname.removeClass('is-invalid');
 		address.removeClass('is-invalid');
 		
-		if (! fullname_value.match('^([a-zA-Zà-úÀ-Ú]{2,})+\s+([a-zA-Zà-úÀ-Ú\s]{2,})+$')) {
+		if (! fullname_value.match('^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$')) {
 			fullname.addClass('is-invalid');
-		} else if (! address_value.match('^[a-zA-Z0-9 _]{3,70}$') && isEmptyOrSpaces(address_value)) {
+		} else if (! address_value.match('^[a-zA-Z0-9 _]{3,70}$')) {
 			address.addClass('is-invalid');
 		} else {
 			window.open(getUrlWhatsapp(fullname_value, shipping, payment, address_value), "_blank");
@@ -171,10 +171,6 @@ jQuery(document).ready(function($)
 		}
 	});
 	
-	function isEmptyOrSpaces(str){
-    		return str === null || str.match(/^ *$/) !== null;
-	}
-
 	function getUrlWhatsapp(fullname, shipping, payment, address){
 		let data = loadData();
 		let str = "https://api.whatsapp.com/send/?phone=5493329566075&text=";
