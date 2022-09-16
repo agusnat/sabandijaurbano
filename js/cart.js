@@ -162,7 +162,7 @@ jQuery(document).ready(function($)
 		
 		if (! fullname_value.match("^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$")) {
 			fullname.addClass('is-invalid');
-		} else if (! address_value.match('^[a-zA-Z0-9 _]{3,70}$')) {
+		} else if (! address_value.match("^[a-zA-Z\s\d\/]*\d[a-zA-Z\s\d\/]*$")) {
 			address.addClass('is-invalid');
 		} else {
 			window.open(getUrlWhatsapp(fullname_value, shipping, payment, address_value), "_blank");
@@ -170,7 +170,7 @@ jQuery(document).ready(function($)
 			closeCart();
 		}
 	});
-	
+
 	function getUrlWhatsapp(fullname, shipping, payment, address){
 		let data = loadData();
 		let str = "https://api.whatsapp.com/send/?phone=5493329566075&text=";
