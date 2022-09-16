@@ -160,9 +160,9 @@ jQuery(document).ready(function($)
 		fullname.removeClass('is-invalid');
 		address.removeClass('is-invalid');
 		
-		if (! fullname_value.match('^[a-zA-Z _]{3,70}$') && fullname_value.match(/^ *$/)) {
+		if (! fullname_value.match('^[a-zA-Z _]{3,70}$') && isEmptyOrSpaces(fullname_value)) {
 			fullname.addClass('is-invalid');
-		} else if (! address_value.match('^[a-zA-Z0-9 _]{3,70}$') && address_value.match(/^ *$/)) {
+		} else if (! address_value.match('^[a-zA-Z0-9 _]{3,70}$') && isEmptyOrSpaces(address_value)) {
 			address.addClass('is-invalid');
 		} else {
 			window.open(getUrlWhatsapp(fullname_value, shipping, payment, address_value), "_blank");
@@ -170,6 +170,10 @@ jQuery(document).ready(function($)
 			closeCart();
 		}
 	});
+	
+	function isEmptyOrSpaces(str){
+    		return str === null || str.match(/^ *$/) !== null;
+	}
 
 	function getUrlWhatsapp(fullname, shipping, payment, address){
 		let data = loadData();
