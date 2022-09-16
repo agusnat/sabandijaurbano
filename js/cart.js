@@ -160,9 +160,9 @@ jQuery(document).ready(function($)
 		fullname.removeClass('is-invalid');
 		address.removeClass('is-invalid');
 		
-		if (! fullname_value.match("^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$")) {
+		if (! fullname_value.match('^[a-zA-Z _]{3,70}$')) {
 			fullname.addClass('is-invalid');
-		} else if (! address_value.match("^[a-zA-Z\s\d\/]*\d[a-zA-Z\s\d\/]*$")) {
+		} else if (! address_value.match('^[a-zA-Z0-9 _]{3,70}$')) {
 			address.addClass('is-invalid');
 		} else {
 			window.open(getUrlWhatsapp(fullname_value, shipping, payment, address_value), "_blank");
