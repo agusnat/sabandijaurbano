@@ -160,9 +160,9 @@ jQuery(document).ready(function($)
 		fullname.removeClass('is-invalid');
 		address.removeClass('is-invalid');
 		
-		if (! fullname_value.match('^[a-zA-Z _]{3,70}$')) {
+		if (! fullname_value.match('^[a-zA-Z ]+$')) {
 			fullname.addClass('is-invalid');
-		} else if (! address_value.match('^[a-zA-Z0-9 _]{3,70}$')) {
+		} else if (! address_value.match('^[a-zA-Z0-9 ]+$')) {
 			address.addClass('is-invalid');
 		} else {
 			window.open(getUrlWhatsapp(fullname_value, shipping, payment, address_value), "_blank");
@@ -176,7 +176,7 @@ jQuery(document).ready(function($)
 		let str = "https://api.whatsapp.com/send/?phone=5493329566075&text=";
 
 		data.forEach((row) => {
-			str += row['name'] + " *[" + row['quantity'] + " unid]*\n";
+			str += row['name'] + " *[Cant: " + row['quantity'] + "]*\n";
 		});
 
 		str += '\nNombre completo: ' + fullname +
