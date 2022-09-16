@@ -160,7 +160,7 @@ jQuery(document).ready(function($)
 		fullname.removeClass('is-invalid');
 		address.removeClass('is-invalid');
 		
-		if (! fullname_value.match('^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$')) {
+		if (! fullname_value.match("^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$")) {
 			fullname.addClass('is-invalid');
 		} else if (! address_value.match('^[a-zA-Z0-9 _]{3,70}$')) {
 			address.addClass('is-invalid');
