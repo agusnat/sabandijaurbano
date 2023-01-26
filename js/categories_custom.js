@@ -409,12 +409,12 @@ jQuery(document).ready(function($)
 			var items = $();
 
 			data.forEach((row, index) => {
-				let str = '<div class="product-item ' + row['tipo'] + '">'+
+				let str = '<div class="product-item ' + row['type'] + '">'+
 				'<div class="product product_filter">'+
-				'<div class="product_image"><img src="'+ (row['imagen'] ? row['imagen'] : 'images/no_disponible.png') + '" alt=""></div>'+
+				'<div class="product_image"><img src="'+ (row['img'] ? row['img'] : 'images/no_disponible.png') + '" alt=""></div>'+
 				'<div class="product_info">'+
-				'<h6 class="product_name"><a href="catalog.html#' + index + '">' + (row['titulo'] ? row['titulo'] : "Articulo sin nombre") + '</a></h6>'+
-				'<div class="product_price">$' + (row['precio'] ? row['precio'] : 0) + '</div>'+
+				'<h6 class="product_name"><a href="catalog.html#' + index + '">' + (row['title'] ? row['title'] : "Articulo sin nombre") + '</a></h6>'+
+				'<div class="product_price">$' + (row['price'] ? row['price'] : 0) + '</div>'+
 				'</div>'+
 				'</div>'+
 				'<div class="red_button see_more" data-id="' + index + '">Ver producto</div>'+
@@ -454,12 +454,12 @@ jQuery(document).ready(function($)
 		if(key > catalogData.length - 1)
 			return;
 
-		var itemTitle = catalogData[key]['titulo'];
+		var itemTitle = catalogData[key]['title'];
 		var title = itemTitle ? itemTitle : "Articulo sin nombre";
-		var itemImage = catalogData[key]['imagen'];
-		var itemPrice = catalogData[key]['precio'];
+		var itemImage = catalogData[key]['img'];
+		var itemPrice = catalogData[key]['price'];
 		var price = (itemPrice ? itemPrice : '0');
-		var itemDesc = catalogData[key]['descripcion'];
+		var itemDesc = catalogData[key]['desc'];
 
 		$('.item_name').html(title);
 		$('.item_desc').html(itemDesc ? itemDesc : 'Sin descripcion');
