@@ -246,11 +246,11 @@ jQuery(document).ready(function($)
 			var key = window.location.hash.substring(1);
 
 			fetch("https://opensheet.elk.sh/18j3DDe7Xorzyy3bzPKBVQ3tc2KCQmmEJNYbzoGp1rtY/catalog").then((res) => res.json()).then((data) => {
-				$('.product_details_title h2').html(data[key]['titulo']);
-				$('.product_details_title p').html(data[key]['descripcion']);
-				$('.product_price').html('$' + data[key]['precio']);
+				$('.product_details_title h2').html(data[key]['name']);
+				$('.product_details_title p').html(data[key]['description']);
+				$('.product_price').html('$' + data[key]['price']);
 
-				$('.single_product_image_background').css("background-image", 'url("' + data[key]['imagen'] +'")');
+				$('.single_product_image_background').css("background-image", 'url("' + data[key]['image'] +'")');
 			});
 		}
 	}

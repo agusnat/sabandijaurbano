@@ -367,10 +367,10 @@ jQuery(document).ready(function($)
 					let str = '<div class="owl-item product_slider_item">'+
 					'<div class="product-item">'+
 					'<div class="product discount">'+
-					'<div class="product_image"><img src="'+ (row['img'] ? row['img'] : 'images/no_disponible.png') + '" alt=""></div>'+
+					'<div class="product_image"><img src="'+ (row['image'] ? row['image'] : 'images/no_disponible.png') + '" alt=""></div>'+
 					'<div class="product_info">'+
-					'<h6 class="product_name"><a href="catalog.html#' + index + '">' + (row['title'] ? row['title'] : "Articulo sin nombre") + '</a></h6>'+
-					'<div class="product_price">$' + (row['precio'] ? row['price'] : '0') + '</div>'+
+					'<h6 class="product_name"><a href="catalog.html#' + index + '">' + (row['name'] ? row['name'] : "Articulo sin nombre") + '</a></h6>'+
+					'<div class="product_price">$' + (row['price'] ? row['price'] : '-') + '</div>'+
 					'</div></div></div></div>';
 
 					$('.owl-carousel').owlCarousel('add', str);

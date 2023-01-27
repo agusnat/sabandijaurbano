@@ -409,11 +409,11 @@ jQuery(document).ready(function($)
 			var items = $();
 
 			data.forEach((row, index) => {
-				let str = '<div class="product-item ' + row['type'] + '">'+
+				let str = '<div class="product-item ' + row['category'] + '">'+
 				'<div class="product product_filter">'+
-				'<div class="product_image"><img src="'+ (row['img'] ? row['img'] : 'images/no_disponible.png') + '" alt=""></div>'+
+				'<div class="product_image"><img src="'+ (row['image'] ? row['image'] : 'images/no_disponible.png') + '" alt=""></div>'+
 				'<div class="product_info">'+
-				'<h6 class="product_name"><a href="catalog.html#' + index + '">' + (row['title'] ? row['title'] : "Articulo sin nombre") + '</a></h6>'+
+				'<h6 class="product_name"><a href="catalog.html#' + index + '">' + (row['name'] ? row['name'] : "Articulo sin nombre") + '</a></h6>'+
 				'<div class="product_price">$' + (row['price'] ? row['price'] : 0) + '</div>'+
 				'</div>'+
 				'</div>'+
