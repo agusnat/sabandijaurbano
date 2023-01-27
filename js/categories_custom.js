@@ -454,12 +454,12 @@ jQuery(document).ready(function($)
 		if(key > catalogData.length - 1)
 			return;
 
-		var itemTitle = catalogData[key]['title'];
+		var itemTitle = catalogData[key]['name'];
 		var title = itemTitle ? itemTitle : "Articulo sin nombre";
-		var itemImage = catalogData[key]['img'];
+		var itemImage = catalogData[key]['image'];
 		var itemPrice = catalogData[key]['price'];
 		var price = (itemPrice ? itemPrice : '0');
-		var itemDesc = catalogData[key]['desc'];
+		var itemDesc = catalogData[key]['description'];
 
 		$('.item_name').html(title);
 		$('.item_desc').html(itemDesc ? itemDesc : 'Sin descripcion');
