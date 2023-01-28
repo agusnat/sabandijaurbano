@@ -28,7 +28,7 @@ jQuery(document).ready(function($)
 			str += '<tr>'+
 			'<td>' + row['name'] + '</td>'+
 			'<td><div class="quantity"><button class="quantity_button rounded-circle subtract" data-id="' + index + '">-</button><span>' + row['quantity'] + '</span><button class="quantity_button rounded-circle add" data-id="' + index + '" data-stock="' + row['stock'] + '">+</button></div></td>'+
-			'<td>$' + price + '</td>'+
+			'<td>$' + numberWithCommas(price) + '</td>'+
 			'</tr>';
 
 			totalItems += row['quantity'];
@@ -39,7 +39,7 @@ jQuery(document).ready(function($)
 			$('.next_page').removeClass('disabled');
 		}
 
-		$('.total_price span').html('$' + totalPrice);
+		$('.total_price span').html('$' + numberWithCommas(totalPrice));
 		$('.cart_items tbody').html(str);
 
 		$('.item_counter').html('Tu pedido (' + totalItems + ')');
@@ -198,5 +198,9 @@ jQuery(document).ready(function($)
 		'\nDirección de envío: ' + address;
 
 		return encodeURI(str);
+	}
+
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 	}
 });

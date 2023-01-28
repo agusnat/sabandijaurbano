@@ -364,14 +364,15 @@ jQuery(document).ready(function($)
 		fetch("https://opensheet.elk.sh/18j3DDe7Xorzyy3bzPKBVQ3tc2KCQmmEJNYbzoGp1rtY/catalog").then((res) => res.json()).then((data) => {
 			data.forEach((row, index) => {
 				if(index > data.length - 10) {
-					let str = '<div class="owl-item product_slider_item">'+
+					let str = '<div class="owl-item product_slider_item' + (row['stock'] < 1 ? ' outofstock' : '') +'">'+
+					'<a href="catalog?productid=' + index + '">'+
 					'<div class="product-item">'+
 					'<div class="product discount">'+
 					'<div class="product_image"><img src="'+ (row['image'] ? row['image'] : 'images/no_disponible.png') + '" alt=""></div>'+
 					'<div class="product_info">'+
-					'<h6 class="product_name"><a href="catalog.html#' + index + '">' + (row['name'] ? row['name'] : "Articulo sin nombre") + '</a></h6>'+
-					'<div class="product_price">$' + (row['price'] ? row['price'] : '-') + getStock(row['stock']) + '</div>'+
-					'</div></div></div></div>';
+					'<h6 class="product_name">' + (row['name'] ? row['name'] : "Articulo sin nombre") + '</h6>'+
+					'<div class="product_price">$' + (row['price'] ? numberWithCommas(row['price']) : '-') + getStock(row['stock']) + '</div>'+
+					'</div></div></div></a></div>';
 
 					$('.owl-carousel').owlCarousel('add', str);
 				}
@@ -381,6 +382,10 @@ jQuery(document).ready(function($)
 		});
 
 		easePreloader();
+	}
+
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 	}
 
 	function getStock(val){

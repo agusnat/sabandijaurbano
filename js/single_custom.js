@@ -248,10 +248,14 @@ jQuery(document).ready(function($)
 			fetch("https://opensheet.elk.sh/18j3DDe7Xorzyy3bzPKBVQ3tc2KCQmmEJNYbzoGp1rtY/catalog").then((res) => res.json()).then((data) => {
 				$('.product_details_title h2').html(data[key]['name']);
 				$('.product_details_title p').html(data[key]['description']);
-				$('.product_price').html('$' + data[key]['price']);
+				$('.product_price').html('$' + numberWithCommas(data[key]['price']));
 
 				$('.single_product_image_background').css("background-image", 'url("' + data[key]['image'] +'")');
 			});
 		}
+	}
+
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 	}
 });

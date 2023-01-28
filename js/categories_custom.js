@@ -313,10 +313,12 @@ jQuery(document).ready(function($)
 		            filter: function()
 		            {
 		            	var priceRange = $('#amount').val();
-			        	var priceMin = parseFloat(priceRange.split('-')[0].replace('$', ''));
-			        	var priceMax = parseFloat(priceRange.split('-')[1].replace('$', ''));
-			        	var itemPrice = $(this).find('.product_price').clone().children().remove().end().text().replace( '$', '' );
-
+			        	var priceMin = parseFloat(priceRange.split('-')[0].replace('$', '').replace( ',', '' ));
+			        	var priceMax = parseFloat(priceRange.split('-')[1].replace('$', '').replace( ',', '' ));
+			        	var itemPrice = $(this).find('.product_price').clone().children().remove().end().text().replace( '$', '' ).replace( ',', '' );
+						console.log(itemPrice);
+						console.log(priceMin);
+						console.log(priceMax);
 			        	return (itemPrice > priceMin) && (itemPrice < priceMax);
 		            },
 		            animationOptions: {
@@ -344,15 +346,15 @@ jQuery(document).ready(function($)
 		{
 			range: true,
 			min: 0,
-			max: 10000,
-			values: [ 0, 10000 ],
+			max: 100000,
+			values: [ 0, 100000 ],
 			slide: function( event, ui )
 			{
-				$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+				$( "#amount" ).val( "$" + numberWithCommas(ui.values[ 0 ]) + " - $" + numberWithCommas(ui.values[ 1 ]) );
 			}
 		});
 			
-		$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+		$( "#amount" ).val( "$" + numberWithCommas($( "#slider-range" ).slider( "values", 0 )) /*+ " - $" + numberWithCommas($( "#slider-range" ).slider( "values", 1 ) )*/);
     }
 
     function initCheckboxes()
@@ -398,7 +400,7 @@ jQuery(document).ready(function($)
 	function fetchCatalog() {
 		fetch("https://opensheet.elk.sh/18j3DDe7Xorzyy3bzPKBVQ3tc2KCQmmEJNYbzoGp1rtY/catalog").then((res) => res.json()).then((data) => {
 			initCatalog(data);
-			getUrlHash();
+			getUrl();
 			easePreloader();
 		});
 	}
@@ -409,12 +411,12 @@ jQuery(document).ready(function($)
 			var items = $();
 
 			data.forEach((row, index) => {
-				let str = '<div class="product-item ' + row['category'] + '">'+
+				let str = '<div class="product-item ' + row['category'] + (row['stock'] < 1 ? ' outofstock' : '') + '">'+
 				'<div class="product product_filter">'+
 				'<div class="product_image"><img src="'+ (row['image'] ? row['image'] : 'images/no_disponible.png') + '" alt=""></div>'+
 				'<div class="product_info">'+
-				'<h6 class="product_name"><a href="catalog.html#' + index + '">' + (row['name'] ? row['name'] : "Articulo sin nombre") + '</a></h6>'+
-				'<div class="product_price">$' + (row['price'] ? row['price'] : 0) + getStock(row['stock']) + '</div>'+
+				'<h6 class="product_name">' + (row['name'] ? row['name'] : "Articulo sin nombre") + '</h6>'+
+				'<div class="product_price">$' + (row['price'] ? numberWithCommas(row['price']) : 0) + getStock(row['stock']) + '</div>'+
 				'</div>'+
 				'</div>'+
 				'<div class="red_button see_more" data-id="' + index + '" data-stock="' + row['stock'] + '">Ver producto</div>'+
@@ -433,32 +435,33 @@ jQuery(document).ready(function($)
 			return '<span>(' + val + ' disponibles)</span>';
 	}
 
-	function getUrlHash() {
+	function getUrl() {
+		if(window.location.search) {
+			var str = window.location.search;
+			var productid = getProductId(str);
+			if(!isNaN(productid))
+				loadItem(productid);
+		}
+
 		if(window.location.hash) {
-			var hash = window.location.hash.substring(1);
-			
-			if(/^\d+$/.test(hash)){
-				loadItem(hash);
-			} else {
-				loadCategorie(hash);
-			}
+			loadCategory(window.location.hash.substring(1));
 		}
 	}
 
-	function loadCategorie(str){
-		var arr = ['cartera', 'neceser', 'mochila'];
+	function getProductId(str){
+		return str.split('productid=')[1];
+	}
 
-		if(arr.includes(str)){
-			productGrid.isotope({filter: '.' + str });
+	function loadCategory(str){
+		productGrid.isotope({filter: '.' + str });
 
-			$('.sidebar_categories').find('li').removeClass('active');
-		}
+		$('.sidebar_categories').find('li').removeClass('active');
 		
 		$("[data-filter='." + str +"']").parent().addClass('active');
 	}
 
 	function loadItem(key){
-		if(key > catalogData.length - 1)
+		if(key > catalogData.length - 1 && key > 0)
 			return;
 
 		var itemTitle = catalogData[key]['name'];
@@ -471,7 +474,7 @@ jQuery(document).ready(function($)
 
 		$('.item_name').html(title);
 		$('.item_desc').html(itemDesc ? itemDesc : 'Sin descripcion');
-		$('.item_price').html('$' + price + getStock(stock));
+		$('.item_price').html('$' + numberWithCommas(price) + getStock(stock));
 		$('.item_image').css("background-image", 'url("' + (itemImage ? itemImage : 'images/no_disponible.png') +'")');
 		$('.add_to_cart_button').attr('data-price', price);
 		$('.add_to_cart_button').attr('data-id', key);
@@ -482,11 +485,14 @@ jQuery(document).ready(function($)
 			$('.add_to_cart_button').addClass('disabled');
 			else 
 			$('.add_to_cart_button').removeClass('disabled');
-		window.location.hash = key;
-
+			
 		openViewer();		
 	}
 
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	}
+	
 	function easePreloader(){
 		$(".preloader").fadeOut(500);
 	}
