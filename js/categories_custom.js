@@ -414,16 +414,23 @@ jQuery(document).ready(function($)
 				'<div class="product_image"><img src="'+ (row['image'] ? row['image'] : 'images/no_disponible.png') + '" alt=""></div>'+
 				'<div class="product_info">'+
 				'<h6 class="product_name"><a href="catalog.html#' + index + '">' + (row['name'] ? row['name'] : "Articulo sin nombre") + '</a></h6>'+
-				'<div class="product_price">$' + (row['price'] ? row['price'] : 0) + '</div>'+
+				'<div class="product_price">$' + (row['price'] ? row['price'] : 0) + getStock(row['stock']) + '</div>'+
 				'</div>'+
 				'</div>'+
-				'<div class="red_button see_more" data-id="' + index + '">Ver producto</div>'+
+				'<div class="red_button see_more" data-id="' + index + '" data-stock="' + row['stock'] + '">Ver producto</div>'+
 				'</div>';
 				
 				items = items.add(str);
 			});
 
 			productGrid.isotope('insert', items);
+	}
+
+	function getStock(val){
+		if(val < 1)
+			return '<span class="outofstock">(Sin stock)</span>';
+		else
+			return '<span>(' + val + ' disponibles)</span>';
 	}
 
 	function getUrlHash() {
@@ -458,17 +465,23 @@ jQuery(document).ready(function($)
 		var title = itemTitle ? itemTitle : "Articulo sin nombre";
 		var itemImage = catalogData[key]['image'];
 		var itemPrice = catalogData[key]['price'];
+		var stock = catalogData[key]['stock'];
 		var price = (itemPrice ? itemPrice : '0');
 		var itemDesc = catalogData[key]['description'];
 
 		$('.item_name').html(title);
 		$('.item_desc').html(itemDesc ? itemDesc : 'Sin descripcion');
-		$('.item_price').html('$' + price);
+		$('.item_price').html('$' + price + getStock(stock));
 		$('.item_image').css("background-image", 'url("' + (itemImage ? itemImage : 'images/no_disponible.png') +'")');
 		$('.add_to_cart_button').attr('data-price', price);
 		$('.add_to_cart_button').attr('data-id', key);
 		$('.add_to_cart_button').attr('data-title', title);
+		$('.add_to_cart_button').attr('data-stock', stock);
 
+		if(stock < 1)
+			$('.add_to_cart_button').addClass('disabled');
+			else 
+			$('.add_to_cart_button').removeClass('disabled');
 		window.location.hash = key;
 
 		openViewer();		

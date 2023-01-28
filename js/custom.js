@@ -370,7 +370,7 @@ jQuery(document).ready(function($)
 					'<div class="product_image"><img src="'+ (row['image'] ? row['image'] : 'images/no_disponible.png') + '" alt=""></div>'+
 					'<div class="product_info">'+
 					'<h6 class="product_name"><a href="catalog.html#' + index + '">' + (row['name'] ? row['name'] : "Articulo sin nombre") + '</a></h6>'+
-					'<div class="product_price">$' + (row['price'] ? row['price'] : '-') + '</div>'+
+					'<div class="product_price">$' + (row['price'] ? row['price'] : '-') + getStock(row['stock']) + '</div>'+
 					'</div></div></div></div>';
 
 					$('.owl-carousel').owlCarousel('add', str);
@@ -381,6 +381,13 @@ jQuery(document).ready(function($)
 		});
 
 		easePreloader();
+	}
+
+	function getStock(val){
+		if(val < 1)
+			return '<span class="outofstock">(Sin stock)</span>';
+		else
+			return '<span>(' + val + ' disponibles)</span>';
 	}
 
 	function easePreloader(){

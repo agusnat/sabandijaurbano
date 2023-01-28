@@ -27,7 +27,7 @@ jQuery(document).ready(function($)
 			let price = row['price'] * row['quantity'];
 			str += '<tr>'+
 			'<td>' + row['name'] + '</td>'+
-			'<td><div class="quantity"><button class="quantity_button rounded-circle subtract" data-id="' + index + '">-</button><span>' + row['quantity'] + '</span><button class="quantity_button rounded-circle add" data-id="' + index + '">+</button></div></td>'+
+			'<td><div class="quantity"><button class="quantity_button rounded-circle subtract" data-id="' + index + '">-</button><span>' + row['quantity'] + '</span><button class="quantity_button rounded-circle add" data-id="' + index + '" data-stock="' + row['stock'] + '">+</button></div></td>'+
 			'<td>$' + price + '</td>'+
 			'</tr>';
 
@@ -91,7 +91,7 @@ jQuery(document).ready(function($)
 			data.splice(id, 1);
 			saveData(data);
 		} else {
-			changeQuantity(id, -1);
+			substractQuantity(id, 1);
 		}
 
 		if(data.length < 1) {
@@ -103,8 +103,9 @@ jQuery(document).ready(function($)
 
 	$(document).on('click', '.quantity_button.add', function() {
 		let id = $(this).data("id");
+		let max = $(this).data("stock");
 
-		changeQuantity(id, 1);
+		sumQuantity(id, 1, max);
 		
 		loadCartItems();
 	});
@@ -113,37 +114,49 @@ jQuery(document).ready(function($)
 		let titulo = $(this).attr('data-title');
 		let id = $(this).attr('data-id');
 		let precio = $(this).attr('data-price');
+		let stock = $(this).attr('data-stock');
 
 		let items = loadData();
 
-		if(items.length < 25){
-			let itemExists = false;
+		if(stock >= 1){
+			if(items.length < 25){
+				let itemExists = false;
 
-			items.forEach((row) => {
-				if(row['id'] === id) {
-					row['quantity'] += 1;
+				items.forEach((row) => {
+					if(row['id'] === id) {
+						if(row['quantity'] < stock)
+							row['quantity'] += 1;
 
-					itemExists = true;
+						itemExists = true;
+					}
+				});
+
+				if(!itemExists) {
+					items.push({name: titulo, quantity: 1, id: id, price: precio, stock: stock});
+					$('.next_page').removeClass('disabled');
 				}
-			});
-
-			if(!itemExists) {
-				items.push({name: titulo, quantity: 1, id: id, price: precio});
-				$('.next_page').removeClass('disabled');
+				
+				saveData(items);
+				loadCartItems();
+			} else {
+				console.log('Superaste el maximo de items!')
 			}
-			
-			saveData(items);
-			loadCartItems();
-		} else {
-			console.log('Superaste el maximo de items!')
 		}
 	});
 
-	function changeQuantity(id, num) {
+	function sumQuantity(id, num, max) {
 		let data = loadData();
-
-		if(data[id]['quantity'] < 99)
+		
+		if(data[id]['quantity'] < max)
 			data[id]['quantity'] += num;
+
+		saveData(data);
+	}
+
+	function substractQuantity(id, num) {
+		let data = loadData();
+		
+		data[id]['quantity'] -= num;
 
 		saveData(data);
 	}
