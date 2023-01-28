@@ -1215,6 +1215,9 @@ section
 {
 	width: 100% !important;
 }
+.product_slider_item.outofstock {
+	display:none;
+}
 .product_slider_nav
 {
 	position: absolute;

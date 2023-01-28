@@ -1232,6 +1232,9 @@ section
 	box-shadow: 0 25px 29px rgba(63, 78, 100, 0.15);
 	border: solid 2px rgba(235,235,235,1);
 }
+.product-item.outofstock {
+	display:none;
+}
 .product
 {
 	width: 100%;
