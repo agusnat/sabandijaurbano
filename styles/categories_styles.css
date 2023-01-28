@@ -1281,6 +1281,9 @@ section
 	font-size: 12px;
 	margin-left: 10px;
 	color: #b5aec4;
+	display: block;
+}
+.product_price span.outofstock {
 	text-decoration: line-through;
 }
 .product_bubble
@@ -1707,6 +1710,11 @@ section
 	font-size: 22px;
 	color: #fe4c50;
 	font-weight: 600;
+}
+.item_price span
+{
+	color: #b5aec4;
+	margin-left: 10px;
 }
 .product_color
 {

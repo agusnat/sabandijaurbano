@@ -969,6 +969,9 @@ section
 	font-size: 12px;
 	margin-left: 10px;
 	color: #b5aec4;
+	display: block;
+}
+.product_price span.outofstock {
 	text-decoration: line-through;
 }
 .product_bubble
