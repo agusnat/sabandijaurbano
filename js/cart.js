@@ -5,17 +5,24 @@ jQuery(document).ready(function($)
 	loadCartItems();
 
 	function saveData(data){
+		let now = new Date();
+		localStorage.setItem('expiry', now.getTime() + 900000);
 		localStorage.setItem('cartItems', JSON.stringify(data));
 	}
 
 	function loadData(){
-		return JSON.parse(localStorage.getItem('cartItems'));
+		let now = new Date();
+
+		if (now.getTime() <= localStorage.getItem('expiry'))
+			return JSON.parse(localStorage.getItem('cartItems'));
+
+		return false;
 	}
 
 	function loadCartItems(){
 		let data = loadData();
 
-		if(data === null) {
+		if(!data) {
 			localStorage.setItem('cartItems', JSON.stringify([]));
 			return;
 		}
