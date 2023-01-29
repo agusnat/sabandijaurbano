@@ -361,7 +361,9 @@ jQuery(document).ready(function($)
     }
 
 	function initArrivals() {
-		fetch("https://opensheet.elk.sh/18j3DDe7Xorzyy3bzPKBVQ3tc2KCQmmEJNYbzoGp1rtY/catalog").then((res) => res.json()).then((data) => {
+		let sheets = new SheetsJson('18j3DDe7Xorzyy3bzPKBVQ3tc2KCQmmEJNYbzoGp1rtY');
+
+		sheets.loadData().then((data) => {
 			data.forEach((row, index) => {
 				if(index > data.length - 10) {
 					let str = '<div class="owl-item product_slider_item' + (row['stock'] < 1 ? ' outofstock' : '') +'">'+

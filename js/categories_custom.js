@@ -1,4 +1,3 @@
-
 jQuery(document).ready(function($)
 {
 	"use strict";
@@ -398,7 +397,9 @@ jQuery(document).ready(function($)
     }
 
 	function fetchCatalog() {
-		fetch("https://opensheet.elk.sh/18j3DDe7Xorzyy3bzPKBVQ3tc2KCQmmEJNYbzoGp1rtY/catalog").then((res) => res.json()).then((data) => {
+		let sheets = new SheetsJson('18j3DDe7Xorzyy3bzPKBVQ3tc2KCQmmEJNYbzoGp1rtY');
+
+		sheets.loadData().then((data) => {
 			initCatalog(data);
 			getUrl();
 			easePreloader();

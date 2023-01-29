@@ -245,7 +245,9 @@ jQuery(document).ready(function($)
 		if(window.location.hash) {
 			var key = window.location.hash.substring(1);
 
-			fetch("https://opensheet.elk.sh/18j3DDe7Xorzyy3bzPKBVQ3tc2KCQmmEJNYbzoGp1rtY/catalog").then((res) => res.json()).then((data) => {
+			let sheets = new SheetsJson('18j3DDe7Xorzyy3bzPKBVQ3tc2KCQmmEJNYbzoGp1rtY');
+
+			sheets.loadData().then((data) => {
 				$('.product_details_title h2').html(data[key]['name']);
 				$('.product_details_title p').html(data[key]['description']);
 				$('.product_price').html('$' + numberWithCommas(data[key]['price']));
