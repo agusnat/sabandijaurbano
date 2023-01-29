@@ -13,10 +13,12 @@ jQuery(document).ready(function($)
 	function loadData(){
 		let now = new Date();
 
-		if (now.getTime() <= localStorage.getItem('expiry'))
-			return JSON.parse(localStorage.getItem('cartItems'));
+		let expireTime = localStorage.getItem('expiry');
 
-		return false;
+		if (now.getTime() > expireTime)
+			localStorage.setItem('cartItems', JSON.stringify([]));
+		
+		return JSON.parse(localStorage.getItem('cartItems'));
 	}
 
 	function loadCartItems(){
