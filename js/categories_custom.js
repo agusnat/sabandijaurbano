@@ -432,6 +432,8 @@ jQuery(document).ready(function($)
 	function getStock(val){
 		if(val < 1)
 			return '<span class="outofstock">(Sin stock)</span>';
+		else if(val == 1)
+			return '<span class="outofstock">(Ultima disponible!)</span>';
 		else
 			return '<span>(' + val + ' disponibles)</span>';
 	}
