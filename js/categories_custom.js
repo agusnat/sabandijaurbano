@@ -433,7 +433,7 @@ jQuery(document).ready(function($)
 		if(val < 1)
 			return '<span class="outofstock">(Sin stock)</span>';
 		else if(val == 1)
-			return '<span class="outofstock">(Ultima disponible!)</span>';
+			return '<span>(Ultima disponible!)</span>';
 		else
 			return '<span>(' + val + ' disponibles)</span>';
 	}
