@@ -397,7 +397,7 @@ jQuery(document).ready(function($)
     }
 
 	function fetchCatalog() {
-		let sheets = new SheetsJson('18j3DDe7Xorzyy3bzPKBVQ3tc2KCQmmEJNYbzoGp1rtY');
+		let sheets = new SheetsJson('1kJGF5Ml82SEaVGkR-Ws0SNiUhBEPvNcVBwqDJuqaKH4');
 
 		sheets.loadData().then((data) => {
 			initCatalog(data);
