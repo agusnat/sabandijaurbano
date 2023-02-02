@@ -245,7 +245,7 @@ jQuery(document).ready(function($)
 		if(window.location.hash) {
 			var key = window.location.hash.substring(1);
 
-			let sheets = new SheetsJson('18j3DDe7Xorzyy3bzPKBVQ3tc2KCQmmEJNYbzoGp1rtY');
+			let sheets = new SheetsJson('1PGUQp4HnDJ5fIsCYiJSPpo2lqDIHK59PL9Sykjm6FhQ');
 
 			sheets.loadData().then((data) => {
 				$('.product_details_title h2').html(data[key]['name']);
